@@ -12,12 +12,14 @@ import { NotImplementedError } from '../extensions/index.js';
  * 
  */
 export default function getSeason(date) {
-  if (Object.prototype.toString.call(date) !== '[object Date]') {
-    return 'Invalid date!';
+  if (date == null) {
+    return 'Unable to determine the time of year!';
   }
 
-  if (typeof date.getMonth() !== 'number' || date.getMinutes() === new Date().getMinutes()) {
-    return 'Invalid date!';
+  try {
+    date.getUTCFullYear();
+  } catch {
+    throw new Error ('Invalid date!');
   }
 
   if (date.getMonth() === 11 || date.getMonth() === 0 || date.getMonth() === 1) {
